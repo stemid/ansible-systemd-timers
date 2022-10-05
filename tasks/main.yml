@@ -11,8 +11,8 @@
       template:
           src: service.j2
           dest: "{{ systemd_base_path | default('/etc/systemd/system') }}/{{ item.key }}.service"
-          owner: "{{ item.value.timer_user | default('root') }}"
-          group: "{{ item.value.timer_user | default('root') }}"
+          owner: "{{ item.value.user | default('root') }}"
+          group: "{{ item.value.user | default('root') }}"
           mode: 0640
       with_dict: "{{ timers }}"
       notify: Reload systemd
@@ -21,8 +21,8 @@
       template:
           src: timer.j2
           dest: "{{ systemd_base_path | default('/etc/systemd/system') }}/{{ item.key }}.timer"
-          owner: "{{ item.value.timer_user | default('root') }}"
-          group: "{{ item.value.timer_user | default('root') }}"
+          owner: "{{ item.value.user | default('root') }}"
+          group: "{{ item.value.user | default('root') }}"
           mode: 0640
       with_dict: "{{ timers }}"
       notify: Reload systemd
